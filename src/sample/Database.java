@@ -1,4 +1,4 @@
-package sample;
+//package sample;
 
 import java.io.*;
 import java.security.MessageDigest;
@@ -14,7 +14,7 @@ public class Database {
     public static void main(String args[]) {
 
         Database data = new Database();
-        data.readFile();
+
 
         System.out.println(data.generateHash("abc123"));
 
@@ -31,9 +31,11 @@ public class Database {
             System.out.println("user login failed.");
     }
 
-    public readFile(String filename) {
+    public static final String
+    readFile(String pathname)
+            throws IOException {
         String contents = "";
-        try (InputStream in = new BufferedInputStream(new FileInputStream(filename))) {
+        try (InputStream in = new BufferedInputStream(new FileInputStream(pathname))) {
 
             byte[] buffer = new byte[1024];
             int lengthRead;
@@ -46,16 +48,17 @@ public class Database {
             e.printStackTrace();
             System.exit(-1);
         }
-        return new contents;
+        return contents;
     }
 
     // read the first line of the file and put that line as the master password
+
     //read the remaining lines and parse them to create password entry object
 
     public void signup(String username, String password) {
         String saltedPassword = SALT + password;
         String hashedPassword = generateHash(saltedPassword);
-        if (hashedPassword != getMasterPassword())
+        if (hashedPassword != password())
             throw new RuntimeException("Wrong Password! Try again!");
     }
 
@@ -71,10 +74,9 @@ public class Database {
         return hashedPassword.equals(storedPasswordHash);
     }
 
-    public String getMasterPassword () {
-
-        // code this
-    }
+    //private String getMasterpassword() {
+       // return password();
+    //}
 
     public static String generateHash(String input) {
         StringBuilder hash = new StringBuilder();
@@ -89,6 +91,7 @@ public class Database {
                 hash.append(digits[b & 0x0f]);
             }
         } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
             // handle error here.
         }
 

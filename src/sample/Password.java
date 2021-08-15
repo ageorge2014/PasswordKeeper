@@ -6,9 +6,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -16,13 +14,28 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.scene.control.Button;
 
 public class Password extends Application {
 
+    Stage window;
+    Scene scene1, scene2;
+    Button button1;
+    Button button2;
+    ListView<String> listView;
+
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setTitle("Password Keeper");
+
+        window = primaryStage;
+
+        Database db = new Database();
+
+        window.setTitle("Password Keeper");
+
+        //create another method to check if text field contains master password.
+        button1.setOnAction(e-> {db.("abby", "blahblah" );
+            window.setScene(scene2);
+        });
 
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
@@ -58,14 +71,22 @@ public class Password extends Application {
         grid.add(actiontarget, 1, 6);
 
 
+        Button button2 = new Button("Search");
+        button2.setOnAction(e-> window.setScene(scene1));
 
-        Scene scene = new Scene(grid, 300, 275);
-        primaryStage.setScene(scene);
+        listView = new ListView<>();
+        listView.getItems().addAll("john", "abby", "karen");
+        listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
-        primaryStage.show();
+        //Layout2
+        StackPane layout2 = new StackPane();
+        layout2.getChildren().addAll(listView, button2);
+        scene2 = new Scene(layout2, 600, 300);
 
+        window.setScene(scene1);
+        window.setTitle("Password Keeper");
+        window.show();
     }
-
 
     public static void main(String[] args) {
         launch(args);
