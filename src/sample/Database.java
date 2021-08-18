@@ -51,7 +51,16 @@ public class Database {
         return contents;
     }
 
-    // read the first line of the file and put that line as the master password
+    File file = new File("");
+    String fileContent = "";
+    while(scan.hasNextLine())
+
+    {
+        fileContent = fileContent.concat(file.nextLine + "")
+    }
+
+}
+    Scanner scan = new Scanner // read the first line of the file and put that line as the master password
 
     //read the remaining lines and parse them to create password entry object
 
